@@ -104,7 +104,6 @@ function Index() {
             <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
               I build scalable web apps with <span className="font-medium text-foreground">React, Python, MongoDB and SQL</span>, and love weaving in blockchain and machine learning. Active in tech communities and event leadership — currently exploring AI system security and Linux.
             </p>
-            <p className="mt-3 text-sm text-muted-foreground">Speaks English, Hindi & Malayalam.</p>
             <div className="mt-8 flex flex-wrap items-center gap-4 text-sm">
               <a href="#work" className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 font-medium text-primary-foreground hover:opacity-90">
                 Explore work <ArrowUpRight className="h-4 w-4" />
