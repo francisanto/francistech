@@ -70,35 +70,75 @@ function Index() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section id="top" className="relative overflow-hidden pt-20">
-        <h1 aria-hidden className="pointer-events-none absolute inset-x-0 top-24 select-none text-center font-display text-[22vw] font-bold leading-none tracking-tighter text-foreground/[0.05]">
-          FRANCIS
-        </h1>
-        <div className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-6xl items-end gap-6 px-6 md:grid-cols-[1fr_auto_1fr]">
-          <div className="pb-16 md:pb-24">
-            <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">Francis Anto</p>
-            <h2 className="font-display text-5xl font-bold leading-[0.95] text-primary md:text-7xl">
-              Full Stack<br />Developer.
-            </h2>
-            <p className="mt-4 text-muted-foreground">React · Python · Blockchain · AI</p>
+      {/* Hero / About with developer ID card */}
+      <section id="top" className="relative overflow-hidden pt-24">
+        <span id="about" className="absolute top-0" />
+        <div className="mx-auto grid min-h-[calc(100vh-6rem)] max-w-6xl items-center gap-12 px-6 pb-16 md:grid-cols-[1.1fr_auto_1fr]">
+          <div>
+            <p className="mb-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">About</p>
+            <h1 className="font-display text-5xl font-bold leading-none md:text-6xl">
+              Hi, I'm <span className="font-normal italic text-primary">Francis.</span>
+            </h1>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
+              I build scalable web apps with <span className="font-medium text-foreground">React, Python, MongoDB and SQL</span>, and love weaving in blockchain and machine learning. Active in tech communities and event leadership — currently exploring AI system security and Linux.
+            </p>
+            <p className="mt-3 text-sm text-muted-foreground">Speaks English, Hindi & Malayalam.</p>
+            <div className="mt-8 flex flex-wrap items-center gap-4 text-sm">
+              <a href="#work" className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 font-medium text-primary-foreground hover:opacity-90">
+                Explore work <ArrowUpRight className="h-4 w-4" />
+              </a>
+              <a href="https://github.com/francisanto" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground">GitHub ↗</a>
+              <a href="https://linkedin.com/in/francisantothottungal" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground">LinkedIn ↗</a>
+            </div>
           </div>
-          <img src={francis} alt="Francis Anto standing" className="mx-auto h-[70vh] max-h-[760px] w-auto object-contain md:h-[85vh] animate-in fade-in slide-in-from-bottom-6 duration-700" />
-          <div className="hidden pb-24 text-right md:block">
-            <p className="text-sm text-muted-foreground">Based in Thrissur, Kerala</p>
-            <a href="#work" className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground hover:opacity-90">
-              Explore work <ArrowUpRight className="h-4 w-4" />
-            </a>
+
+          {/* Lanyard ID card */}
+          <div className="mx-auto flex flex-col items-center animate-in fade-in slide-in-from-top-10 duration-1000">
+            <div className="h-24 w-3 rounded-b bg-primary" />
+            <div className="-mt-1 h-4 w-8 rounded-md border-2 border-muted-foreground/40 bg-card" />
+            <div className="mt-1 w-64 origin-top rotate-[-3deg] overflow-hidden rounded-2xl border bg-card shadow-2xl transition duration-500 hover:rotate-0">
+              <div className="flex items-center gap-2 bg-primary px-4 py-3 text-primary-foreground">
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-primary-foreground/15 text-[10px] font-bold">FA</span>
+                <div>
+                  <p className="font-display text-xs font-bold tracking-wider">DEVELOPER ID</p>
+                  <p className="text-[10px] opacity-70">Portfolio · 2026</p>
+                </div>
+              </div>
+              <div className="p-4">
+                <div className="mx-auto h-40 w-32 overflow-hidden rounded-xl border bg-tile-soft">
+                  <img src={francis} alt="Francis Anto" className="h-[300%] w-full object-cover object-top" />
+                </div>
+                <p className="mt-3 text-center font-display font-bold tracking-wide">FRANCIS ANTO</p>
+                <p className="text-center text-xs text-muted-foreground">Full Stack Developer</p>
+                <div className="mt-4 grid grid-cols-3 gap-1 text-[10px]">
+                  <div><p className="text-muted-foreground">ID</p><p className="font-medium">FA-0001</p></div>
+                  <div><p className="text-muted-foreground">Dept</p><p className="font-medium">CSE</p></div>
+                  <div className="text-right"><p className="text-muted-foreground">Batch</p><p className="font-medium">2027</p></div>
+                </div>
+                <div className="mt-3 h-6 bg-[repeating-linear-gradient(90deg,var(--foreground)_0_2px,transparent_2px_4px,var(--foreground)_4px_5px,transparent_5px_8px)] opacity-80" />
+              </div>
+            </div>
+          </div>
+
+          <div className="text-sm">
+            <p className="mb-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">Quick facts</p>
+            <dl className="divide-y border-y">
+              {[
+                ["Based in", "Thrissur, Kerala"],
+                ["Studying", "B.Tech, CSE"],
+                ["Batch", "2023 – 2027"],
+                ["Interned at", "Ofside · Mindenius"],
+                ["Focus", "Full stack · AI · Web3"],
+              ].map(([k, v]) => (
+                <div key={k} className="flex justify-between py-2.5">
+                  <dt className="text-muted-foreground">{k}</dt>
+                  <dd className="font-medium">{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-6 font-display italic text-muted-foreground">"From the database to the last pixel."</p>
           </div>
         </div>
-      </section>
-
-      <section id="about" className="mx-auto max-w-4xl px-6 py-24">
-        <p className="mb-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">About</p>
-        <p className="font-display text-2xl leading-snug md:text-4xl">
-          I build scalable web apps with <span className="text-primary">React, Python, MongoDB and SQL</span>, and love weaving in blockchain and machine learning. Active in tech communities and event leadership — currently exploring AI system security and Linux.
-        </p>
-        <p className="mt-6 text-muted-foreground">Speaks English, Hindi & Malayalam.</p>
       </section>
 
       <section id="skills" className="mx-auto max-w-6xl px-6 py-24">
