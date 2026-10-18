@@ -70,15 +70,37 @@ function Index() {
         </div>
       </header>
 
-      {/* Hero / About with developer ID card */}
-      <section id="top" className="relative overflow-hidden pt-24">
-        <span id="about" className="absolute top-0" />
+      {/* Hero */}
+      <section id="top" className="relative overflow-hidden pt-20">
+        <h1 aria-hidden className="pointer-events-none absolute inset-x-0 top-24 select-none text-center font-display text-[22vw] font-bold leading-none tracking-tighter text-foreground/[0.05]">
+          FRANCIS
+        </h1>
+        <div className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-6xl items-end gap-6 px-6 md:grid-cols-[1fr_auto_1fr]">
+          <div className="pb-16 md:pb-24">
+            <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">Francis Anto</p>
+            <h2 className="font-display text-5xl font-bold leading-[0.95] text-primary md:text-7xl">
+              Full Stack<br />Developer.
+            </h2>
+            <p className="mt-4 text-muted-foreground">React · Python · Blockchain · AI</p>
+          </div>
+          <img src={francis} alt="Francis Anto standing" className="mx-auto h-[70vh] max-h-[760px] w-auto object-contain md:h-[85vh] animate-in fade-in slide-in-from-bottom-6 duration-700" />
+          <div className="hidden pb-24 text-right md:block">
+            <p className="text-sm text-muted-foreground">Based in Thrissur, Kerala</p>
+            <a href="#work" className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground hover:opacity-90">
+              Explore work <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* About with developer ID card */}
+      <section id="about" className="relative overflow-hidden border-t pt-16">
         <div className="mx-auto grid min-h-[calc(100vh-6rem)] max-w-6xl items-center gap-12 px-6 pb-16 md:grid-cols-[1.1fr_auto_1fr]">
           <div>
             <p className="mb-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">About</p>
-            <h1 className="font-display text-5xl font-bold leading-none md:text-6xl">
+            <h2 className="font-display text-5xl font-bold leading-none md:text-6xl">
               Hi, I'm <span className="font-normal italic text-primary">Francis.</span>
-            </h1>
+            </h2>
             <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
               I build scalable web apps with <span className="font-medium text-foreground">React, Python, MongoDB and SQL</span>, and love weaving in blockchain and machine learning. Active in tech communities and event leadership — currently exploring AI system security and Linux.
             </p>
