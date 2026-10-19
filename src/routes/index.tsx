@@ -125,6 +125,12 @@ function Index() {
               Full Stack<br />Developer.
             </h2>
             <p className="mt-4 text-muted-foreground">MERN · AI · Web Development</p>
+            <button type="button" onClick={toggleVoice} className="mt-6 inline-flex items-center gap-3 rounded-full border bg-card px-5 py-2.5 text-sm font-medium shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              <span className={`grid h-8 w-8 place-items-center rounded-full bg-primary text-primary-foreground ${speaking ? "animate-pulse" : ""}`}>
+                {speaking ? <Square className="h-3.5 w-3.5" /> : <Play className="ml-0.5 h-3.5 w-3.5" />}
+              </span>
+              {speaking ? "Stop intro" : "Hear my intro"}
+            </button>
             <div className="mt-8 flex flex-wrap gap-10">
               {[["1", "Year developer experience"], ["13+", "Projects completed"], ["2+", "Event leads"]].map(([v, l]) => (
                 <div key={l}>
@@ -236,9 +242,9 @@ function Index() {
             {selected ? (
               <>
                 {selected.logo ? (
-                  <img src={selected.logo} alt={`${selected.n} logo`} className="mx-auto h-20 w-20" />
+                  <img src={selected.logo} alt={`${selected.n} logo`} className="mx-auto h-32 w-32" />
                 ) : (
-                  <Network className="mx-auto h-20 w-20 text-primary" />
+                  <Network className="mx-auto h-32 w-32 text-primary" />
                 )}
                 <p className="mt-4 font-display text-xl font-bold">{selected.n}</p>
                 <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">{selected.c}</p>
