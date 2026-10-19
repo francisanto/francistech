@@ -234,16 +234,14 @@ function Index() {
     const voices = synth.getVoices();
     // Prioritize natural male / Indian English voice
     const indianMale = voices.find(
-      (v) =>
-        /^en[-_]IN/i.test(v.lang) &&
-        /male|rishi|ravi|prabhat|neerja|aarav/i.test(v.name)
+      (v) => /^en[-_]IN/i.test(v.lang) && /male|rishi|ravi|prabhat|neerja|aarav/i.test(v.name),
     );
     const indianAny = voices.find((v) => /^en[-_]IN/i.test(v.lang));
     const englishMale = voices.find(
       (v) =>
         /^en/i.test(v.lang) &&
         /male|david|daniel|george|alex|fred|james|oliver|arthur|guy/i.test(v.name) &&
-        !/female|zira|samantha|victoria|karen|moira|fiona|tessa/i.test(v.name)
+        !/female|zira|samantha|victoria|karen|moira|fiona|tessa/i.test(v.name),
     );
     const anyEnglish = voices.find((v) => /^en/i.test(v.lang));
 
@@ -308,7 +306,11 @@ function Index() {
           <div className="flex items-center gap-6">
             <nav className="hidden gap-6 text-sm text-muted-foreground md:flex">
               {nav.map((n) => (
-                <a key={n} href={`#${n.toLowerCase()}`} className="transition hover:text-foreground">
+                <a
+                  key={n}
+                  href={`#${n.toLowerCase()}`}
+                  className="transition hover:text-foreground"
+                >
                   {n}
                 </a>
               ))}
@@ -364,7 +366,11 @@ function Index() {
                     speaking ? "animate-pulse" : ""
                   }`}
                 >
-                  {speaking ? <Square className="h-3.5 w-3.5" /> : <Play className="ml-0.5 h-3.5 w-3.5" />}
+                  {speaking ? (
+                    <Square className="h-3.5 w-3.5" />
+                  ) : (
+                    <Play className="ml-0.5 h-3.5 w-3.5" />
+                  )}
                 </span>
                 {speaking ? (
                   <span className="flex items-center gap-2">
@@ -622,7 +628,9 @@ function Index() {
                 className={`aspect-square rounded-xl p-3 text-left shadow-sm transition duration-300 hover:-translate-y-1 ${
                   tone[k.c]
                 } ${active && active !== k.c ? "opacity-20" : ""} ${
-                  selected?.n === k.n ? "ring-2 ring-primary ring-offset-2 ring-offset-background" : ""
+                  selected?.n === k.n
+                    ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                    : ""
                 }`}
               >
                 <div className="text-[10px] opacity-60">{String(i + 1).padStart(2, "0")}</div>
@@ -653,7 +661,9 @@ function Index() {
                 <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-tile-soft font-display text-2xl font-bold text-muted-foreground">
                   ?
                 </div>
-                <p className="mt-4 text-sm text-muted-foreground">Click any skill to see its logo</p>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Click any skill to see its logo
+                </p>
               </>
             )}
           </div>
@@ -703,12 +713,14 @@ function Index() {
         <div className="mt-10 space-y-10 border-l pl-8">
           <div>
             <p className="text-xs text-muted-foreground">May 2026 – Aug 2026</p>
-            <h3 className="font-display text-2xl font-bold">React Developer Intern · Ofside, Delhi</h3>
+            <h3 className="font-display text-2xl font-bold">
+              React Developer Intern · Ofside, Delhi
+            </h3>
             <p className="mt-2 text-muted-foreground leading-relaxed">
               Contributed to a sports management platform with match scoring, tournament management,
-              authentication, and subscription functionality using React Native, NestJS, Node.js, and
-              REST APIs. Debugged and resolved 250+ application issues; released on Google Play Store
-              and Apple App Store.
+              authentication, and subscription functionality using React Native, NestJS, Node.js,
+              and REST APIs. Debugged and resolved 250+ application issues; released on Google Play
+              Store and Apple App Store.
             </p>
           </div>
           <div>
@@ -718,7 +730,8 @@ function Index() {
             </h3>
             <p className="mt-2 text-muted-foreground leading-relaxed">
               Designed promotional posters, marketing materials, and webinar content to boost
-              audience engagement. Handled student enquiries, coordinated meetings, and resolved queries.
+              audience engagement. Handled student enquiries, coordinated meetings, and resolved
+              queries.
             </p>
           </div>
         </div>
