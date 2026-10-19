@@ -53,7 +53,7 @@ const projects = [
   { t: "CaptaNet", h: "https://github.com/francisanto/CaptaNet", tag: "Linux · Networking", p: "A Linux hostapd-based hotspot with a captive portal, connectable through a companion app and website. Currently in development." },
 ];
 
-const nav = ["About", "Skills", "Work", "Experience", "Education", "Contact"];
+const nav = ["About", "Skills", "Work", "Experience", "Education", "Milestones", "Contact"];
 
 const INTRO =
   "Hi, I am Francis, a full stack developer from Thrissur, Kerala. I build scalable web apps with React, Python, MongoDB and SQL, and I love weaving in blockchain and machine learning. Currently I am exploring AI system security and Linux.";
