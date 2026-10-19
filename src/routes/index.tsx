@@ -1,15 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Github, Linkedin, Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Phone, ArrowUpRight, Network } from "lucide-react";
 import francis from "@/assets/francis-standing.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Francis Anto — Full Stack Developer" },
-      { name: "description", content: "Portfolio of Francis Anto, full stack developer from Thrissur building with React, Python, blockchain and AI." },
+      { name: "description", content: "Portfolio of Francis Anto, full stack developer from Thrissur building with MERN, AI and web development." },
       { property: "og:title", content: "Francis Anto — Full Stack Developer" },
-      { property: "og:description", content: "React, Python, blockchain and AI projects by Francis Anto." },
+      { property: "og:description", content: "MERN, AI and web development projects by Francis Anto." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -17,30 +17,28 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-type Cat = "Languages" | "Frontend" | "Backend" | "Databases" | "Tools";
-const skills: { s: string; n: string; c: Cat }[] = [
-  { s: "C", n: "C", c: "Languages" },
-  { s: "Py", n: "Python", c: "Languages" },
-  { s: "Js", n: "JavaScript", c: "Languages" },
-  { s: "Sq", n: "SQL", c: "Languages" },
-  { s: "Re", n: "React", c: "Frontend" },
-  { s: "Rn", n: "React Native", c: "Frontend" },
-  { s: "Ht", n: "HTML", c: "Frontend" },
-  { s: "Cs", n: "CSS", c: "Frontend" },
-  { s: "No", n: "Node.js", c: "Backend" },
-  { s: "Ns", n: "NestJS", c: "Backend" },
-  { s: "Ra", n: "REST API", c: "Backend" },
-  { s: "Mg", n: "MongoDB", c: "Databases" },
-  { s: "My", n: "MySQL", c: "Databases" },
-  { s: "Gt", n: "Git", c: "Tools" },
-  { s: "Gh", n: "GitHub", c: "Tools" },
-  { s: "Pm", n: "Postman", c: "Tools" },
-  { s: "Sw", n: "Swagger", c: "Tools" },
-  { s: "Lx", n: "Linux", c: "Tools" },
+const D = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
+type Cat = "Frontend" | "Backend" | "Databases" | "Tools";
+const skills: { s: string; n: string; c: Cat; logo: string | null }[] = [
+  { s: "Py", n: "Python", c: "Backend", logo: `${D}/python/python-original.svg` },
+  { s: "Js", n: "JavaScript", c: "Frontend", logo: `${D}/javascript/javascript-original.svg` },
+  { s: "Re", n: "React", c: "Frontend", logo: `${D}/react/react-original.svg` },
+  { s: "Rn", n: "React Native", c: "Frontend", logo: `${D}/react/react-original.svg` },
+  { s: "Ht", n: "HTML", c: "Frontend", logo: `${D}/html5/html5-original.svg` },
+  { s: "Cs", n: "CSS", c: "Frontend", logo: `${D}/css3/css3-original.svg` },
+  { s: "No", n: "Node.js", c: "Backend", logo: `${D}/nodejs/nodejs-original.svg` },
+  { s: "Ns", n: "NestJS", c: "Backend", logo: `${D}/nestjs/nestjs-original.svg` },
+  { s: "Ra", n: "REST API", c: "Backend", logo: null },
+  { s: "Mg", n: "MongoDB", c: "Databases", logo: `${D}/mongodb/mongodb-original.svg` },
+  { s: "My", n: "MySQL", c: "Databases", logo: `${D}/mysql/mysql-original.svg` },
+  { s: "Gt", n: "Git", c: "Tools", logo: `${D}/git/git-original.svg` },
+  { s: "Gh", n: "GitHub", c: "Tools", logo: `${D}/github/github-original.svg` },
+  { s: "Pm", n: "Postman", c: "Tools", logo: `${D}/postman/postman-original.svg` },
+  { s: "Sw", n: "Swagger", c: "Tools", logo: `${D}/swagger/swagger-original.svg` },
+  { s: "Lx", n: "Linux", c: "Tools", logo: `${D}/linux/linux-original.svg` },
 ];
-const cats: Cat[] = ["Languages", "Frontend", "Backend", "Databases", "Tools"];
+const cats: Cat[] = ["Frontend", "Backend", "Databases", "Tools"];
 const tone: Record<Cat, string> = {
-  Languages: "bg-tile text-tile-foreground",
   Frontend: "bg-primary text-primary-foreground",
   Backend: "bg-tile-warm text-foreground",
   Databases: "bg-tile-soft text-foreground",
@@ -48,15 +46,18 @@ const tone: Record<Cat, string> = {
 };
 
 const projects = [
-  { t: "Concordia", d: "Jul – Sep 2024", tag: "Blockchain", p: "Collaboration platform for goal tracking, team coordination and shared fund management with smart contracts on opBNB Testnet via MetaMask. Recognized at BNB Hack." },
-  { t: "PA System", d: "Oct – Nov 2025", tag: "Speech AI", p: "Real-time voice announcement classifier for emergency alerts using WhisperX, deployed over a Linux hotspot and captive portal for noisy institutions." },
-  { t: "Emotion & Relationship Classifier", d: "Sep 2025 – Feb 2026", tag: "NLP", p: "BERT-based models classify emotions and relationship patterns from conversations, backed by MySQL with multimodal text preprocessing." },
+  { t: "Repa", h: "https://github.com/francisanto/Repa", tag: "AI · EdTech", p: "AI-driven class management and event platform — automated student verification, event registration with secure Razorpay payments, OCR-based timetable extraction with live updates, and printable leave/permission letters." },
+  { t: "Emotion Detection", h: "https://github.com/francisanto/Emotion_detection", tag: "Multimodal AI", p: "BERT + speech features + multimodal fusion to detect emotion, stress and social intent from chat text, voice clips and chat screenshots, with history-aware relationship analytics." },
+  { t: "InANOut", h: "https://github.com/francisanto/inanout", tag: "FinTech", p: "Fund management system with lending and borrowing across people groups — a GPay-style split — plus expense and income tracking including salary and other incomes." },
+  { t: "CoinCordia", h: "https://github.com/francisanto/coincordia", tag: "Blockchain", p: "A decentralized application that lets friends save money together using blockchain technology." },
+  { t: "CaptaNet", h: "https://github.com/francisanto/CaptaNet", tag: "Linux · Networking", p: "A Linux hostapd-based hotspot with a captive portal, connectable through a companion app and website. Currently in development." },
 ];
 
 const nav = ["About", "Skills", "Work", "Experience", "Education", "Contact"];
 
 function Index() {
   const [active, setActive] = useState<Cat | null>(null);
+  const [selected, setSelected] = useState<(typeof skills)[number] | null>(null);
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="fixed inset-x-0 top-0 z-50 border-b bg-background/80 backdrop-blur">
@@ -81,7 +82,15 @@ function Index() {
             <h2 className="font-display text-5xl font-bold leading-[0.95] text-primary md:text-7xl">
               Full Stack<br />Developer.
             </h2>
-            <p className="mt-4 text-muted-foreground">React · Python · Blockchain · AI</p>
+            <p className="mt-4 text-muted-foreground">MERN · AI · Web Development</p>
+            <div className="mt-8 flex flex-wrap gap-10">
+              {[["1", "Year developer experience"], ["13+", "Projects completed"], ["2+", "Event leads"]].map(([v, l]) => (
+                <div key={l}>
+                  <p className="font-display text-3xl font-bold text-primary">{v}</p>
+                  <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">{l}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <img src={francis} alt="Francis Anto standing" className="mx-auto h-[70vh] max-h-[760px] w-auto object-contain md:h-[85vh] animate-in fade-in slide-in-from-bottom-6 duration-700" />
           <div className="hidden pb-24 text-right md:block">
@@ -131,8 +140,7 @@ function Index() {
                 </div>
                 <p className="mt-3 text-center font-display font-bold tracking-wide">FRANCIS ANTO</p>
                 <p className="text-center text-xs text-muted-foreground">Full Stack Developer</p>
-                <div className="mt-4 grid grid-cols-3 gap-1 text-[10px]">
-                  <div><p className="text-muted-foreground">ID</p><p className="font-medium">FA-0001</p></div>
+                <div className="mt-4 grid grid-cols-2 gap-1 text-[10px]">
                   <div><p className="text-muted-foreground">Dept</p><p className="font-medium">CSE</p></div>
                   <div className="text-right"><p className="text-muted-foreground">Batch</p><p className="font-medium">2027</p></div>
                 </div>
@@ -148,23 +156,21 @@ function Index() {
                 ["Based in", "Thrissur, Kerala"],
                 ["Studying", "B.Tech, CSE"],
                 ["Batch", "2023 – 2027"],
-                ["Interned at", "Ofside · Mindenius"],
-                ["Focus", "Full stack · AI · Web3"],
+                ["Focus", "MERN · AI · Web Development"],
               ].map(([k, v]) => (
                 <div key={k} className="flex justify-between py-2.5">
                   <dt className="text-muted-foreground">{k}</dt>
-                  <dd className="font-medium">{v}</dd>
+                  <dd className="text-right font-medium">{v}</dd>
                 </div>
               ))}
             </dl>
-            <p className="mt-6 font-display italic text-muted-foreground">"From the database to the last pixel."</p>
           </div>
         </div>
       </section>
 
       <section id="skills" className="mx-auto max-w-6xl px-6 py-24">
         <h2 className="font-display text-4xl font-bold md:text-6xl">The periodic table of me</h2>
-        <p className="mt-2 text-muted-foreground">Hover a group to light it up.</p>
+        <p className="mt-2 text-muted-foreground">Hover a group to light it up. Click a tile to see its logo.</p>
         <div className="mt-8 flex flex-wrap gap-2">
           {cats.map((c) => (
             <button key={c} onMouseEnter={() => setActive(c)} onMouseLeave={() => setActive(null)} onClick={() => setActive(active === c ? null : c)}
@@ -173,27 +179,47 @@ function Index() {
             </button>
           ))}
         </div>
-        <div className="mt-8 grid grid-cols-3 gap-3 sm:grid-cols-6">
-          {skills.map((k, i) => (
-            <div key={k.n} className={`aspect-square rounded-xl p-3 shadow-sm transition duration-300 hover:-translate-y-1 ${tone[k.c]} ${active && active !== k.c ? "opacity-20" : ""}`}>
-              <div className="text-[10px] opacity-60">{String(i + 1).padStart(2, "0")}</div>
-              <div className="font-display text-3xl font-bold">{k.s}</div>
-              <div className="truncate text-xs opacity-75">{k.n}</div>
-            </div>
-          ))}
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_260px]">
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
+            {skills.map((k, i) => (
+              <button key={k.n} type="button" onClick={() => setSelected(selected?.n === k.n ? null : k)}
+                className={`aspect-square rounded-xl p-3 text-left shadow-sm transition duration-300 hover:-translate-y-1 ${tone[k.c]} ${active && active !== k.c ? "opacity-20" : ""} ${selected?.n === k.n ? "ring-2 ring-primary ring-offset-2 ring-offset-background" : ""}`}>
+                <div className="text-[10px] opacity-60">{String(i + 1).padStart(2, "0")}</div>
+                <div className="font-display text-3xl font-bold">{k.s}</div>
+                <div className="truncate text-xs opacity-75">{k.n}</div>
+              </button>
+            ))}
+          </div>
+          <div className="hidden h-fit rounded-2xl border bg-card p-6 text-center lg:block">
+            {selected ? (
+              <>
+                {selected.logo ? (
+                  <img src={selected.logo} alt={`${selected.n} logo`} className="mx-auto h-20 w-20" />
+                ) : (
+                  <Network className="mx-auto h-20 w-20 text-primary" />
+                )}
+                <p className="mt-4 font-display text-xl font-bold">{selected.n}</p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">{selected.c}</p>
+              </>
+            ) : (
+              <>
+                <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-tile-soft font-display text-2xl font-bold text-muted-foreground">?</div>
+                <p className="mt-4 text-sm text-muted-foreground">Click any skill to see its logo</p>
+              </>
+            )}
+          </div>
         </div>
       </section>
 
       <section id="work" className="mx-auto max-w-6xl px-6 py-24">
         <h2 className="font-display text-4xl font-bold md:text-6xl">Selected work</h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <article key={p.t} className="rounded-2xl border bg-card p-6 transition hover:-translate-y-1 hover:shadow-lg">
+            <a key={p.t} href={p.h} target="_blank" rel="noreferrer" className="rounded-2xl border bg-card p-6 transition hover:-translate-y-1 hover:shadow-lg">
               <span className="rounded-full bg-tile-soft px-3 py-1 text-xs">{p.tag}</span>
-              <h3 className="mt-4 font-display text-2xl font-bold">{p.t}</h3>
-              <p className="text-xs text-muted-foreground">{p.d}</p>
+              <h3 className="mt-4 flex items-center gap-2 font-display text-2xl font-bold">{p.t} <ArrowUpRight className="h-4 w-4 text-muted-foreground" /></h3>
               <p className="mt-3 text-sm text-muted-foreground">{p.p}</p>
-            </article>
+            </a>
           ))}
         </div>
       </section>
@@ -220,7 +246,7 @@ function Index() {
           <div className="rounded-2xl bg-tile p-6 text-tile-foreground">
             <p className="text-xs opacity-70">2023 – 2027</p>
             <h3 className="mt-2 font-display text-xl font-bold">B.Tech, Computer Science & Engineering</h3>
-            <p className="mt-1 text-sm opacity-80">Christ College of Engineering, Thrissur · 72.30%</p>
+            <p className="mt-1 text-sm opacity-80">Christ College of Engineering, Thrissur · 72.5%</p>
           </div>
           <div className="rounded-2xl border bg-card p-6">
             <p className="text-xs text-muted-foreground">2020 – 2022</p>
