@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Github, Linkedin, Mail, MapPin, Phone, ArrowUpRight, Network } from "lucide-react";
-import francis from "@/assets/francis-standing.png";
+import { useRef, useState } from "react";
+import { Github, Linkedin, Mail, MapPin, Phone, ArrowUpRight, Network, Play, Square, Download, Award, Rocket, Trophy } from "lucide-react";
+import francis from "@/assets/francis-formal.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,9 +55,51 @@ const projects = [
 
 const nav = ["About", "Skills", "Work", "Experience", "Education", "Contact"];
 
+const INTRO =
+  "Hi, I am Francis, a full stack developer from Thrissur, Kerala. I build scalable web apps with React, Python, MongoDB and SQL, and I love weaving in blockchain and machine learning. Currently I am exploring AI system security and Linux.";
+
+function speakIntro(onEnd: () => void) {
+  const synth = window.speechSynthesis;
+  synth.cancel();
+  const utter = new SpeechSynthesisUtterance(INTRO);
+  const voices = synth.getVoices();
+  const male =
+    voices.find((v) => /en/i.test(v.lang) && /male|david|daniel|george|alex|fred|james|rishi/i.test(v.name) && !/female|zira|samantha|victoria/i.test(v.name)) ??
+    voices.find((v) => /^en[-_]IN/i.test(v.lang)) ??
+    voices.find((v) => /^en/i.test(v.lang));
+  if (male) utter.voice = male;
+  utter.pitch = 0.9;
+  utter.rate = 1;
+  utter.onend = onEnd;
+  utter.onerror = onEnd;
+  synth.speak(utter);
+}
+
+const milestones = [
+  { i: Award, t: "BeachHack EXCOM", p: "Core team leadership and event coordination" },
+  { i: Rocket, t: "BNB Hack Builders", p: "Featured among Web3 builders and projects" },
+  { i: Trophy, t: "Idea Fest Funding", p: "Team White Tie secured ₹35,000 in funding" },
+];
+
 function Index() {
   const [active, setActive] = useState<Cat | null>(null);
   const [selected, setSelected] = useState<(typeof skills)[number] | null>(null);
+  const [speaking, setSpeaking] = useState(false);
+  const speakingRef = useRef(false);
+  const toggleVoice = () => {
+    if (speakingRef.current) {
+      window.speechSynthesis.cancel();
+      speakingRef.current = false;
+      setSpeaking(false);
+      return;
+    }
+    speakingRef.current = true;
+    setSpeaking(true);
+    speakIntro(() => {
+      speakingRef.current = false;
+      setSpeaking(false);
+    });
+  };
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="fixed inset-x-0 top-0 z-50 border-b bg-background/80 backdrop-blur">
