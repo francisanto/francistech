@@ -302,6 +302,27 @@ function Index() {
             <p className="mt-1 text-sm text-muted-foreground">Bharatiya Vidya Bhavan's Vidya Mandir, Thrissur · 87.6%</p>
           </div>
         </div>
+        <div className="mt-10 text-center">
+          <a href="/downloads/francis-anto-resume.pdf" download="Francis-Anto-Resume.pdf" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90">
+            <Download className="h-4 w-4" /> Download Resume
+          </a>
+        </div>
+      </section>
+
+      <section id="milestones" className="mx-auto max-w-6xl px-6 py-24">
+        <h2 className="font-display text-4xl font-bold md:text-6xl">A few moments worth remembering</h2>
+        <p className="mt-2 text-muted-foreground">From student communities to funded ideas, these are the milestones behind the work.</p>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {milestones.map(({ i: I, t, p }) => (
+            <div key={t} className="rounded-2xl border bg-card p-6 transition hover:-translate-y-1 hover:shadow-lg">
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary text-primary-foreground">
+                <I className="h-6 w-6" />
+              </span>
+              <h3 className="mt-4 font-display text-xl font-bold">{t}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{p}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section id="contact" className="bg-tile py-24 text-tile-foreground">
