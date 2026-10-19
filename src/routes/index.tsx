@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Github, Linkedin, Mail, MapPin, Phone, ArrowUpRight, Network } from "lucide-react";
-import francis from "@/assets/francis-standing.png";
+import { useRef, useState } from "react";
+import { Github, Linkedin, Mail, MapPin, Phone, ArrowUpRight, Network, Play, Square, Download, Award, Rocket, Trophy } from "lucide-react";
+import francis from "@/assets/francis-formal.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -53,11 +53,53 @@ const projects = [
   { t: "CaptaNet", h: "https://github.com/francisanto/CaptaNet", tag: "Linux · Networking", p: "A Linux hostapd-based hotspot with a captive portal, connectable through a companion app and website. Currently in development." },
 ];
 
-const nav = ["About", "Skills", "Work", "Experience", "Education", "Contact"];
+const nav = ["About", "Skills", "Work", "Experience", "Education", "Milestones", "Contact"];
+
+const INTRO =
+  "Hi, I am Francis, a full stack developer from Thrissur, Kerala. I build scalable web apps with React, Python, MongoDB and SQL, and I love weaving in blockchain and machine learning. Currently I am exploring AI system security and Linux.";
+
+function speakIntro(onEnd: () => void) {
+  const synth = window.speechSynthesis;
+  synth.cancel();
+  const utter = new SpeechSynthesisUtterance(INTRO);
+  const voices = synth.getVoices();
+  const male =
+    voices.find((v) => /en/i.test(v.lang) && /male|david|daniel|george|alex|fred|james|rishi/i.test(v.name) && !/female|zira|samantha|victoria/i.test(v.name)) ??
+    voices.find((v) => /^en[-_]IN/i.test(v.lang)) ??
+    voices.find((v) => /^en/i.test(v.lang));
+  if (male) utter.voice = male;
+  utter.pitch = 0.9;
+  utter.rate = 1;
+  utter.onend = onEnd;
+  utter.onerror = onEnd;
+  synth.speak(utter);
+}
+
+const milestones = [
+  { i: Award, t: "BeachHack EXCOM", p: "Core team leadership and event coordination" },
+  { i: Rocket, t: "BNB Hack Builders", p: "Featured among Web3 builders and projects" },
+  { i: Trophy, t: "Idea Fest Funding", p: "Team White Tie secured ₹35,000 in funding" },
+];
 
 function Index() {
   const [active, setActive] = useState<Cat | null>(null);
   const [selected, setSelected] = useState<(typeof skills)[number] | null>(null);
+  const [speaking, setSpeaking] = useState(false);
+  const speakingRef = useRef(false);
+  const toggleVoice = () => {
+    if (speakingRef.current) {
+      window.speechSynthesis.cancel();
+      speakingRef.current = false;
+      setSpeaking(false);
+      return;
+    }
+    speakingRef.current = true;
+    setSpeaking(true);
+    speakIntro(() => {
+      speakingRef.current = false;
+      setSpeaking(false);
+    });
+  };
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="fixed inset-x-0 top-0 z-50 border-b bg-background/80 backdrop-blur">
@@ -83,6 +125,12 @@ function Index() {
               Full Stack<br />Developer.
             </h2>
             <p className="mt-4 text-muted-foreground">MERN · AI · Web Development</p>
+            <button type="button" onClick={toggleVoice} className="mt-6 inline-flex items-center gap-3 rounded-full border bg-card px-5 py-2.5 text-sm font-medium shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              <span className={`grid h-8 w-8 place-items-center rounded-full bg-primary text-primary-foreground ${speaking ? "animate-pulse" : ""}`}>
+                {speaking ? <Square className="h-3.5 w-3.5" /> : <Play className="ml-0.5 h-3.5 w-3.5" />}
+              </span>
+              {speaking ? "Stop intro" : "Hear my intro"}
+            </button>
             <div className="mt-8 flex flex-wrap gap-10">
               {[["1", "Year developer experience"], ["13+", "Projects completed"], ["2+", "Event leads"]].map(([v, l]) => (
                 <div key={l}>
@@ -194,9 +242,9 @@ function Index() {
             {selected ? (
               <>
                 {selected.logo ? (
-                  <img src={selected.logo} alt={`${selected.n} logo`} className="mx-auto h-20 w-20" />
+                  <img src={selected.logo} alt={`${selected.n} logo`} className="mx-auto h-32 w-32" />
                 ) : (
-                  <Network className="mx-auto h-20 w-20 text-primary" />
+                  <Network className="mx-auto h-32 w-32 text-primary" />
                 )}
                 <p className="mt-4 font-display text-xl font-bold">{selected.n}</p>
                 <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">{selected.c}</p>
@@ -253,6 +301,27 @@ function Index() {
             <h3 className="mt-2 font-display text-xl font-bold">Higher Secondary (Class XII)</h3>
             <p className="mt-1 text-sm text-muted-foreground">Bharatiya Vidya Bhavan's Vidya Mandir, Thrissur · 87.6%</p>
           </div>
+        </div>
+        <div className="mt-10 text-center">
+          <a href="/downloads/francis-anto-resume.pdf" download="Francis-Anto-Resume.pdf" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90">
+            <Download className="h-4 w-4" /> Download Resume
+          </a>
+        </div>
+      </section>
+
+      <section id="milestones" className="mx-auto max-w-6xl px-6 py-24">
+        <h2 className="font-display text-4xl font-bold md:text-6xl">A few moments worth remembering</h2>
+        <p className="mt-2 text-muted-foreground">From student communities to funded ideas, these are the milestones behind the work.</p>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {milestones.map(({ i: I, t, p }) => (
+            <div key={t} className="rounded-2xl border bg-card p-6 transition hover:-translate-y-1 hover:shadow-lg">
+              <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary text-primary-foreground">
+                <I className="h-6 w-6" />
+              </span>
+              <h3 className="mt-4 font-display text-xl font-bold">{t}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{p}</p>
+            </div>
+          ))}
         </div>
       </section>
 
