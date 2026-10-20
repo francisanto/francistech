@@ -26,7 +26,6 @@ import {
   Smartphone,
 } from "lucide-react";
 import { getReviews, addReview, type ReviewItem } from "@/lib/supabase";
-import francis from "@/assets/francis-formal.png";
 import francisPortrait from "@/assets/francis-portrait.jpg";
 import bnbSpotlight from "@/assets/achievements/bnb-hack-spotlight.jpg";
 import codeExcom from "@/assets/achievements/code-excom-2024.jpg";
@@ -206,7 +205,7 @@ const milestones: Milestone[] = [
     tag: "Dual Store Launch",
     tagColor: "bg-yellow-500/10 text-yellow-600 border-yellow-500/30",
     description:
-      "Core developer in a 2-person engineering team building Ofside, a comprehensive sports management platform featuring live match scoring, tournament management, authentication, and subscription systems using React Native, NestJS, and REST APIs. Debugged and resolved 250+ application issues and successfully shipped to both the Apple App Store and Google Play Store.",
+      "Core developer in a 2-person team building Ofside. Resolved 250+ issues and shipped to both Apple App Store & Google Play Store using React Native & NestJS.",
     image: ofsideApp,
     aspect: "aspect-[16/10]",
     icon: Smartphone,
@@ -224,6 +223,7 @@ function Index() {
   const [reviewsList, setReviewsList] = useState<ReviewItem[]>([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [reviewName, setReviewName] = useState("");
+  const [reviewRole, setReviewRole] = useState("");
   const [reviewEmail, setReviewEmail] = useState("");
   const [reviewText, setReviewText] = useState("");
   const [submittingReview, setSubmittingReview] = useState(false);
@@ -247,6 +247,8 @@ function Index() {
       name: reviewName.trim(),
       email: reviewEmail.trim(),
       review: reviewText.trim(),
+      role: reviewRole.trim(),
+      designation: reviewRole.trim(),
     });
     setSubmittingReview(false);
     if (res.success) {
@@ -254,6 +256,7 @@ function Index() {
       const updated = await getReviews();
       setReviewsList(updated);
       setReviewName("");
+      setReviewRole("");
       setReviewEmail("");
       setReviewText("");
       setTimeout(() => {
@@ -472,11 +475,12 @@ function Index() {
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-10">
+            <div className="mt-8 flex flex-wrap gap-8">
               {[
                 ["1+", "Year developer experience"],
                 ["13+", "Projects completed"],
-                ["2", "KSUM Idea Fest funding"],
+                ["₹35K", "KSUM Idea Fest funding"],
+                ["2", "Event Lead Experiences"],
               ].map(([v, l]) => (
                 <div key={l}>
                   <p className="font-display text-3xl font-bold text-primary">{v}</p>
@@ -486,23 +490,84 @@ function Index() {
             </div>
           </div>
 
-          {/* AI Model Centerpiece */}
-          <div className="relative flex flex-col items-center justify-end">
+          {/* Developer ID Card Centerpiece (Replacing standing model) */}
+          <div className="relative flex flex-col items-center justify-center pb-12 md:pb-20 animate-in fade-in zoom-in-95 duration-700">
             {speaking && (
               <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
-                <div className="h-[85%] w-[85%] animate-ping rounded-full bg-primary/10 duration-1000" />
-                <div className="h-[95%] w-[95%] animate-pulse rounded-full bg-primary/15" />
+                <div className="h-64 w-64 animate-ping rounded-full bg-primary/20 duration-1000" />
+                <div className="h-80 w-80 animate-pulse rounded-full bg-primary/15" />
               </div>
             )}
-            <img
-              src={francis}
-              alt="Francis Anto AI Model"
-              className={`mx-auto h-[70vh] max-h-[760px] w-auto object-contain transition-all duration-500 md:h-[85vh] animate-in fade-in slide-in-from-bottom-6 duration-700 ${
+            {/* Lanyard Strap & Clip */}
+            <div className="h-20 w-3 rounded-b bg-gradient-to-b from-primary/80 to-primary shadow-sm" />
+            <div className="-mt-1 flex h-5 w-9 items-center justify-center rounded-md border-2 border-muted-foreground/40 bg-card shadow-sm">
+              <div className="h-2 w-2 rounded-full bg-muted-foreground/50" />
+            </div>
+
+            {/* ID Card Badge */}
+            <div
+              className={`mt-1 w-72 origin-top rotate-[-2deg] overflow-hidden rounded-2xl border bg-card shadow-2xl transition-all duration-500 hover:rotate-0 hover:scale-[1.02] ${
                 speaking
-                  ? "scale-[1.02] drop-shadow-[0_20px_50px_rgba(48,27,160,0.3)]"
-                  : "drop-shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+                  ? "ring-4 ring-primary/40 shadow-[0_20px_60px_rgba(48,27,160,0.35)]"
+                  : "shadow-[0_15px_40px_rgba(0,0,0,0.12)]"
               }`}
-            />
+            >
+              <div className="flex items-center justify-between bg-primary px-4 py-3 text-primary-foreground">
+                <div className="flex items-center gap-2">
+                  <span className="grid h-7 w-7 place-items-center rounded-full bg-primary-foreground/20 text-[10px] font-bold">
+                    FA
+                  </span>
+                  <div>
+                    <p className="font-display text-xs font-bold tracking-wider">DEVELOPER ID</p>
+                    <p className="text-[10px] opacity-75">Christ College of Engineering · 2026</p>
+                  </div>
+                </div>
+                {speaking && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-primary-foreground/20 px-2 py-0.5 text-[9px] font-semibold text-primary-foreground animate-pulse">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    Speaking
+                  </span>
+                )}
+              </div>
+              <div className="p-4">
+                <div className="relative mx-auto h-48 w-40 overflow-hidden rounded-xl border bg-tile-soft shadow-inner">
+                  <img
+                    src={francisPortrait}
+                    alt="Francis Anto Portrait"
+                    className="h-full w-full object-cover object-top"
+                  />
+                  {speaking && (
+                    <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full bg-black/75 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
+                      <Volume2 className="h-3 w-3 text-emerald-400 animate-bounce" />
+                      <span>Live</span>
+                    </div>
+                  )}
+                </div>
+                <p className="mt-3.5 text-center font-display text-base font-bold tracking-wide">
+                  FRANCIS ANTO
+                </p>
+                <p className="text-center text-xs font-medium text-primary">Full Stack Developer</p>
+                <div className="mt-4 grid grid-cols-2 gap-2 rounded-lg bg-muted/40 p-2.5 text-[10px]">
+                  <div>
+                    <p className="text-[9px] uppercase tracking-wider text-muted-foreground">
+                      Department
+                    </p>
+                    <p className="font-semibold text-foreground">CSE (B.Tech)</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-[9px] uppercase tracking-wider text-muted-foreground">
+                      Batch
+                    </p>
+                    <p className="font-semibold text-foreground">2023 – 2027</p>
+                  </div>
+                </div>
+                <div className="mt-3 flex items-center justify-between text-[10px] text-muted-foreground">
+                  <span className="font-mono text-[9px]">ID: CCE-23-CSE-042</span>
+                  <span className="font-mono text-[9px]">Thrissur, KL</span>
+                </div>
+                <div className="mt-2.5 h-5 w-full bg-[repeating-linear-gradient(90deg,var(--foreground)_0_2px,transparent_2px_4px,var(--foreground)_4px_5px,transparent_5px_8px)] opacity-70" />
+              </div>
+            </div>
           </div>
 
           <div className="hidden pb-24 text-right md:block">
@@ -555,24 +620,29 @@ function Index() {
         </div>
       )}
 
-      {/* About with Developer ID Card */}
+      {/* About Section (ID Card removed, elegant 2-column layout) */}
       <section id="about" className="relative overflow-hidden border-t pt-16">
-        <div className="mx-auto grid min-h-[calc(100vh-6rem)] max-w-6xl items-center gap-12 px-6 pb-16 md:grid-cols-[1.1fr_auto_1fr]">
+        <div className="mx-auto grid max-w-6xl items-start gap-12 px-6 pb-20 md:grid-cols-2 lg:gap-16">
           <div>
             <p className="mb-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">About</p>
             <h2 className="font-display text-5xl font-bold leading-none md:text-6xl">
               Hi, I'm <span className="font-normal italic text-primary">Francis.</span>
             </h2>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
+            <p className="mt-6 text-base leading-relaxed text-muted-foreground">
               I build scalable web apps with{" "}
               <span className="font-medium text-foreground">React, Python, MongoDB, and SQL</span>,
               and love weaving in blockchain and machine learning. Active in tech communities and
               event leadership — currently exploring AI system security and Linux.
             </p>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              From leading campus technical events to securing competitive grants like the Kerala
+              Startup Mission (KSUM) Idea Fest, I bridge engineering execution with proactive
+              leadership and product ownership.
+            </p>
             <div className="mt-8 flex flex-wrap items-center gap-4 text-sm">
               <a
                 href="#work"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 font-medium text-primary-foreground hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 font-medium text-primary-foreground hover:opacity-90 transition"
               >
                 Explore work <ArrowUpRight className="h-4 w-4" />
               </a>
@@ -587,7 +657,7 @@ function Index() {
                 href="https://github.com/francisanto"
                 target="_blank"
                 rel="noreferrer"
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground transition"
               >
                 GitHub ↗
               </a>
@@ -595,70 +665,46 @@ function Index() {
                 href="https://linkedin.com/in/francisantothottungal"
                 target="_blank"
                 rel="noreferrer"
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground transition"
               >
                 LinkedIn ↗
               </a>
             </div>
           </div>
 
-          {/* Lanyard Developer ID card with Real Photo */}
-          <div className="mx-auto flex flex-col items-center animate-in fade-in slide-in-from-top-10 duration-1000">
-            <div className="h-24 w-3 rounded-b bg-primary" />
-            <div className="-mt-1 h-4 w-8 rounded-md border-2 border-muted-foreground/40 bg-card" />
-            <div className="mt-1 w-64 origin-top rotate-[-3deg] overflow-hidden rounded-2xl border bg-card shadow-2xl transition duration-500 hover:rotate-0">
-              <div className="flex items-center gap-2 bg-primary px-4 py-3 text-primary-foreground">
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-primary-foreground/15 text-[10px] font-bold">
-                  FA
-                </span>
-                <div>
-                  <p className="font-display text-xs font-bold tracking-wider">DEVELOPER ID</p>
-                  <p className="text-[10px] opacity-70">Christ College of Engineering · 2026</p>
-                </div>
-              </div>
-              <div className="p-4">
-                <div className="mx-auto h-44 w-36 overflow-hidden rounded-xl border bg-tile-soft shadow-inner">
-                  <img
-                    src={francisPortrait}
-                    alt="Francis Anto"
-                    className="h-full w-full object-cover object-top"
-                  />
-                </div>
-                <p className="mt-3 text-center font-display font-bold tracking-wide">
-                  FRANCIS ANTO
+          {/* Quick Facts Card */}
+          <div className="rounded-2xl border bg-card p-7 shadow-sm">
+            <div className="flex items-center justify-between border-b pb-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                  Information & Profile
                 </p>
-                <p className="text-center text-xs text-muted-foreground">Full Stack Developer</p>
-                <div className="mt-4 grid grid-cols-2 gap-1 text-[10px]">
-                  <div>
-                    <p className="text-muted-foreground">Dept</p>
-                    <p className="font-medium">CSE (B.Tech)</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-muted-foreground">Batch</p>
-                    <p className="font-medium">2023 – 2027</p>
-                  </div>
-                </div>
-                <div className="mt-3 h-6 bg-[repeating-linear-gradient(90deg,var(--foreground)_0_2px,transparent_2px_4px,var(--foreground)_4px_5px,transparent_5px_8px)] opacity-80" />
+                <h3 className="mt-1 font-display text-xl font-bold text-foreground">Quick Facts</h3>
               </div>
+              <span className="inline-flex items-center rounded-full bg-tile-soft px-3 py-1 text-xs font-medium text-primary">
+                Available for Roles
+              </span>
             </div>
-          </div>
 
-          <div className="text-sm">
-            <p className="mb-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">
-              Quick facts
-            </p>
-            <dl className="divide-y border-y">
+            <dl className="divide-y divide-border/60 text-sm">
               {[
-                ["Based in", "Thrissur, Kerala"],
+                ["Based in", "Thrissur, Kerala, India"],
                 ["College", "Christ College of Engineering"],
-                ["Studying", "B.Tech, CSE"],
-                ["Batch", "2023 – 2027"],
-                ["Focus", "MERN · AI & ML · Web3"],
-                ["Email", "francisanto2022@gmail.com"],
+                ["Degree & Major", "B.Tech, Computer Science & Engineering"],
+                ["Graduation Batch", "2023 – 2027"],
+                ["Core Focus", "MERN · AI Security · Web3"],
+                ["Leadership", "Event Co-ordinator, CODE EXCOM 2024–25"],
+                ["Startup Grant", "₹35,000 Idea Fest (Kerala Startup Mission)"],
+                ["Direct Email", "francisanto2022@gmail.com"],
               ].map(([k, v]) => (
-                <div key={k} className="flex justify-between py-2.5">
-                  <dt className="text-muted-foreground">{k}</dt>
-                  <dd className="text-right font-medium">{v}</dd>
+                <div
+                  key={k}
+                  className="flex flex-col justify-between py-3 sm:flex-row sm:items-center"
+                >
+                  <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                    {k}
+                  </dt>
+                  <dd className="font-semibold text-foreground sm:text-right mt-1 sm:mt-0">{v}</dd>
                 </div>
               ))}
             </dl>
@@ -762,12 +808,12 @@ function Index() {
                 <h3 className="mt-4 font-display text-2xl font-bold">{p.t}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.p}</p>
               </div>
-              <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border/40 pt-4 text-xs font-semibold">
+              <div className="mt-6 flex flex-wrap items-center gap-2.5 border-t border-border/40 pt-4 text-xs font-semibold">
                 <a
                   href={p.h}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 text-primary hover:underline"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-border/80 bg-muted/40 px-3 py-1.5 text-primary transition hover:bg-muted hover:border-primary/40"
                 >
                   <Github className="h-3.5 w-3.5" />
                   <span>GitHub</span>
@@ -779,10 +825,11 @@ function Index() {
                     href={p.live}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground shadow-sm transition hover:opacity-90 hover:scale-105"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-sm transition hover:opacity-90 hover:scale-105"
                   >
+                    <ExternalLink className="h-3.5 w-3.5" />
                     <span>Live Demo</span>
-                    <ExternalLink className="h-3 w-3" />
+                    <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
                 )}
               </div>
@@ -1055,9 +1102,18 @@ function Index() {
                 <p className="text-sm leading-relaxed text-foreground/90 italic">
                   “{item.review || item.message}”
                 </p>
-                <div className="mt-5 flex items-center justify-between border-t border-border/40 pt-3 text-xs">
-                  <span className="font-semibold text-foreground">{item.name || item.author}</span>
-                  <span className="text-muted-foreground">
+                <div className="mt-5 flex items-start justify-between border-t border-border/40 pt-3 text-xs">
+                  <div>
+                    <span className="font-semibold text-foreground block">
+                      {item.name || item.author}
+                    </span>
+                    {(item.designation || item.role) && (
+                      <span className="text-[11px] font-medium text-primary block mt-0.5">
+                        {item.designation || item.role}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-muted-foreground shrink-0 text-[11px]">
                     {item.created_at
                       ? new Date(item.created_at).toLocaleDateString("en-US", {
                           month: "short",
@@ -1115,6 +1171,19 @@ function Index() {
                   value={reviewName}
                   onChange={(e) => setReviewName(e.target.value)}
                   placeholder="Your name"
+                  className="mt-1.5 w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground shadow-sm placeholder:text-muted-foreground/60 transition focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Your Role or Field / Designation
+                </label>
+                <input
+                  type="text"
+                  value={reviewRole}
+                  onChange={(e) => setReviewRole(e.target.value)}
+                  placeholder="e.g. Software Engineer, Teammate, Recruiter, Student"
                   className="mt-1.5 w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground shadow-sm placeholder:text-muted-foreground/60 transition focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </div>

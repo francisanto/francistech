@@ -17,6 +17,8 @@ export interface ReviewItem {
   email?: string | undefined;
   message: string;
   review?: string | undefined;
+  designation?: string | undefined;
+  role?: string | undefined;
   created_at?: string | undefined;
 }
 
@@ -30,6 +32,8 @@ interface RawReviewRow {
   email?: string;
   message?: string;
   review?: string;
+  designation?: string;
+  role?: string;
   created_at?: string;
 }
 
@@ -65,6 +69,8 @@ export async function getReviews(): Promise<ReviewItem[]> {
     email: row.email,
     message: row.message || row.review || "",
     review: row.message || row.review || "",
+    designation: row.designation || row.role || undefined,
+    role: row.role || row.designation || undefined,
     created_at: row.created_at,
   }));
 }
@@ -73,7 +79,11 @@ export async function addReview(review: {
   name: string;
   email: string;
   review: string;
+  role?: string | undefined;
+  designation?: string | undefined;
 }): Promise<{ success: boolean; error?: string }> {
+  const roleVal = (review.designation || review.role || "").trim();
+
   if (!supabase) {
     try {
       const local = localStorage.getItem("francis_portfolio_reviews");
@@ -85,6 +95,8 @@ export async function addReview(review: {
         email: review.email,
         message: review.review,
         review: review.review,
+        designation: roleVal || undefined,
+        role: roleVal || undefined,
         created_at: new Date().toISOString(),
       };
       localStorage.setItem("francis_portfolio_reviews", JSON.stringify([newItem, ...current]));
@@ -95,12 +107,14 @@ export async function addReview(review: {
     }
   }
 
-  // Insert into Supabase table with columns: author, email, message
+  // Insert into Supabase table with columns: author, email, message, designation, role
   const { error } = await supabase.from("reviews").insert([
     {
       author: review.name,
       email: review.email,
       message: review.review,
+      designation: roleVal,
+      role: roleVal,
     },
   ]);
 

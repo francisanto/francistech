@@ -159,9 +159,8 @@
 [data-lovable-badge],
 [id*="lovable-badge"],
 [class*="lovable-badge"],
-[id*="lovable"],
-a[href*="lovable.dev"],
-a[href*="lovable.app"] {
+[id*="lovable"]:not(#__next),
+a[href*="lovable.dev"] {
   display: none !important;
   opacity: 0 !important;
   visibility: hidden !important;
