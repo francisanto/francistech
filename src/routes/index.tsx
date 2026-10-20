@@ -1007,9 +1007,11 @@ function Index() {
                 key={item.id || item.created_at}
                 className="flex flex-col justify-between rounded-2xl border border-border/70 bg-card/70 p-6 shadow-sm transition hover:border-primary/40 hover:-translate-y-0.5"
               >
-                <p className="text-sm leading-relaxed text-foreground/90 italic">"{item.review}"</p>
+                <p className="text-sm leading-relaxed text-foreground/90 italic">
+                  “{item.review || item.message}”
+                </p>
                 <div className="mt-5 flex items-center justify-between border-t border-border/40 pt-3 text-xs">
-                  <span className="font-semibold text-foreground">{item.name}</span>
+                  <span className="font-semibold text-foreground">{item.name || item.author}</span>
                   <span className="text-muted-foreground">
                     {item.created_at
                       ? new Date(item.created_at).toLocaleDateString("en-US", {
