@@ -23,6 +23,7 @@ import {
   CheckCircle,
   MessageSquareQuote,
   Plus,
+  Smartphone,
 } from "lucide-react";
 import { getReviews, addReview, type ReviewItem } from "@/lib/supabase";
 import francis from "@/assets/francis-formal.png";
@@ -30,6 +31,7 @@ import francisPortrait from "@/assets/francis-portrait.jpg";
 import bnbSpotlight from "@/assets/achievements/bnb-hack-spotlight.jpg";
 import codeExcom from "@/assets/achievements/code-excom-2024.jpg";
 import ideaFest from "@/assets/achievements/ksum-idea-fest-funding.png";
+import ofsideApp from "@/assets/achievements/ofside-internship.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -181,6 +183,19 @@ const milestones: Milestone[] = [
     aspect: "aspect-[16/10]",
     icon: Award,
     stats: "Event Co-ordinator",
+  },
+  {
+    id: "ofside-app",
+    title: "Ofside — App Store & Play Store Release",
+    subtitle: "React Developer Intern · Sports Platform · Delhi",
+    tag: "Dual Store Launch",
+    tagColor: "bg-yellow-500/10 text-yellow-600 border-yellow-500/30",
+    description:
+      "Core developer in a 2-person engineering team building Ofside, a comprehensive sports management platform featuring live match scoring, tournament management, authentication, and subscription systems using React Native, NestJS, and REST APIs. Debugged and resolved 250+ application issues and successfully shipped to both the Apple App Store and Google Play Store.",
+    image: ofsideApp,
+    aspect: "aspect-[16/10]",
+    icon: Smartphone,
+    stats: "250+ Issues Fixed · Dual Store Release",
   },
 ];
 
@@ -816,7 +831,7 @@ function Index() {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {milestones.map((m) => {
             const Icon = m.icon;
             return (

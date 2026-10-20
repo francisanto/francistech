@@ -152,3 +152,22 @@
     color: var(--color-foreground);
   }
 }
+
+/* Completely remove/hide Lovable logos, badges, and watermarks */
+#lovable-badge,
+.lovable-badge,
+[data-lovable-badge],
+[id*="lovable-badge"],
+[class*="lovable-badge"],
+[id*="lovable"],
+a[href*="lovable.dev"],
+a[href*="lovable.app"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
