@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env["VITE_SUPABASE_URL"] as string | undefined;
+const supabaseAnonKey = import.meta.env["VITE_SUPABASE_ANON_KEY"] as string | undefined;
 
 export interface ReviewItem {
   id?: string;
@@ -12,9 +12,7 @@ export interface ReviewItem {
 }
 
 export const supabase =
-  supabaseUrl && supabaseAnonKey
-    ? createClient(supabaseUrl, supabaseAnonKey)
-    : null;
+  supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
 
 export async function getReviews(): Promise<ReviewItem[]> {
   if (!supabase) {
@@ -60,13 +58,11 @@ export async function addReview(review: {
         review: review.review,
         created_at: new Date().toISOString(),
       };
-      localStorage.setItem(
-        "francis_portfolio_reviews",
-        JSON.stringify([newItem, ...current]),
-      );
+      localStorage.setItem("francis_portfolio_reviews", JSON.stringify([newItem, ...current]));
       return { success: true };
-    } catch (e: any) {
-      return { success: false, error: e?.message || "Failed to save review" };
+    } catch (e: unknown) {
+      const err = e as Error;
+      return { success: false, error: err?.message || "Failed to save review" };
     }
   }
 

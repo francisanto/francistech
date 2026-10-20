@@ -22,6 +22,7 @@ import {
   Send,
   CheckCircle,
   MessageSquareQuote,
+  Plus,
 } from "lucide-react";
 import { getReviews, addReview, type ReviewItem } from "@/lib/supabase";
 import francis from "@/assets/francis-formal.png";
@@ -151,7 +152,7 @@ const milestones: Milestone[] = [
     description:
       "Concordia (user-friendly group savings dApp built on opBNB) was officially selected and featured in the BNB Hack Builders Spotlight celebrating key milestones of past awardees.",
     image: bnbSpotlight,
-    aspect: "aspect-[16/9]",
+    aspect: "aspect-[16/10]",
     icon: Rocket,
     stats: "opBNB Spotlight",
   },
@@ -164,7 +165,7 @@ const milestones: Milestone[] = [
     description:
       "Congratulations to Team White Tie (Francis Anto, S4 CSE-A) for securing ₹35,000 in prototype grant funding under IDEA FEST by the Kerala Startup Mission (KSUM) at Christ College of Engineering.",
     image: ideaFest,
-    aspect: "aspect-[4/3]",
+    aspect: "aspect-[16/10]",
     icon: Trophy,
     stats: "₹35,000 Grant",
   },
@@ -177,7 +178,7 @@ const milestones: Milestone[] = [
     description:
       "Elected Event Co-ordinator for the Department of Computer Science & Engineering association (CODE) Executive Committee 2024–25 at Christ College of Engineering, orchestrating tech fests and coding events.",
     image: codeExcom,
-    aspect: "aspect-[3/4]",
+    aspect: "aspect-[16/10]",
     icon: Award,
     stats: "Event Co-ordinator",
   },
@@ -185,12 +186,13 @@ const milestones: Milestone[] = [
 
 function Index() {
   const [active, setActive] = useState<Cat | null>(null);
-  const [selected, setSelected] = useState<(typeof skills)[number] | null>(skills[0]);
+  const [selected, setSelected] = useState<(typeof skills)[number] | null>(skills[0] || null);
   const [speaking, setSpeaking] = useState(false);
   const [selectedMilestone, setSelectedMilestone] = useState<Milestone | null>(null);
 
   // Reviews & Feedback state (empty initially, connects to Supabase)
   const [reviewsList, setReviewsList] = useState<ReviewItem[]>([]);
+  const [showReviewModal, setShowReviewModal] = useState(false);
   const [reviewName, setReviewName] = useState("");
   const [reviewEmail, setReviewEmail] = useState("");
   const [reviewText, setReviewText] = useState("");
@@ -224,15 +226,19 @@ function Index() {
       setReviewName("");
       setReviewEmail("");
       setReviewText("");
-      setTimeout(() => setReviewSuccess(false), 5000);
+      setTimeout(() => {
+        setReviewSuccess(false);
+        setShowReviewModal(false);
+      }, 1500);
     }
   };
 
-  // Close modal with Escape key
+  // Close modals with Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setSelectedMilestone(null);
+        setShowReviewModal(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -411,34 +417,18 @@ function Index() {
               <button
                 type="button"
                 onClick={toggleVoice}
-                className={`inline-flex items-center gap-3 rounded-full border px-5 py-2.5 text-sm font-medium shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${
+                className={`grid h-11 w-11 place-items-center rounded-full transition-all duration-200 shadow-sm hover:scale-105 active:scale-95 ${
                   speaking
-                    ? "border-primary bg-primary/10 text-primary ring-2 ring-primary/20"
-                    : "bg-card text-foreground"
+                    ? "bg-primary text-primary-foreground ring-4 ring-primary/20 animate-pulse"
+                    : "bg-primary text-primary-foreground hover:opacity-90 hover:shadow-md"
                 }`}
+                aria-label={speaking ? "Stop voice intro" : "Play voice intro"}
+                title={speaking ? "Stop voice intro" : "Play voice intro"}
               >
-                <span
-                  className={`grid h-8 w-8 place-items-center rounded-full bg-primary text-primary-foreground ${
-                    speaking ? "animate-pulse" : ""
-                  }`}
-                >
-                  {speaking ? (
-                    <Square className="h-3.5 w-3.5" />
-                  ) : (
-                    <Play className="ml-0.5 h-3.5 w-3.5" />
-                  )}
-                </span>
                 {speaking ? (
-                  <span className="flex items-center gap-2">
-                    <span>Stop intro</span>
-                    <span className="flex items-center gap-0.5 h-3">
-                      <span className="w-1 bg-primary rounded-full animate-bounce h-full" />
-                      <span className="w-1 bg-primary rounded-full animate-bounce [animation-delay:0.15s] h-2/3" />
-                      <span className="w-1 bg-primary rounded-full animate-bounce [animation-delay:0.3s] h-4/5" />
-                    </span>
-                  </span>
+                  <Square className="h-4 w-4 fill-current" />
                 ) : (
-                  "Hear my intro"
+                  <Play className="ml-0.5 h-4 w-4 fill-current" />
                 )}
               </button>
 
@@ -456,7 +446,7 @@ function Index() {
               {[
                 ["1+", "Year developer experience"],
                 ["13+", "Projects completed"],
-                ["₹35K", "KSUM Idea Fest funding"],
+                ["2", "KSUM Idea Fest funding"],
               ].map(([v, l]) => (
                 <div key={l}>
                   <p className="font-display text-3xl font-bold text-primary">{v}</p>
@@ -483,13 +473,6 @@ function Index() {
                   : "drop-shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
               }`}
             />
-            {/* Live badge */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full border bg-background/90 px-3.5 py-1 text-[11px] font-medium backdrop-blur shadow-md whitespace-nowrap">
-              <span
-                className={`h-2 w-2 rounded-full ${speaking ? "bg-emerald-500 animate-ping" : "bg-primary"}`}
-              />
-              <span>{speaking ? "AI Voice Active" : "AI Avatar Model · Francis Anto"}</span>
-            </div>
           </div>
 
           <div className="hidden pb-24 text-right md:block">
@@ -814,63 +797,26 @@ function Index() {
             </p>
           </div>
         </div>
-
-        {/* Dedicated Resume Showcase Card */}
-        <div className="mt-10 rounded-2xl border bg-card p-8 shadow-sm">
-          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-            <div className="flex items-center gap-4 text-left">
-              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
-                <FileText className="h-7 w-7" />
-              </div>
-              <div>
-                <span className="inline-block rounded-full bg-tile-soft px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                  Official Curriculum Vitae
-                </span>
-                <h3 className="mt-1 font-display text-xl font-bold">Francis Anto — Resume</h3>
-                <p className="text-xs text-muted-foreground">
-                  Full Stack Developer · MERN · AI · Web3 · PDF (110 KB)
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="/downloads/francis-anto-resume.pdf"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition hover:bg-muted"
-              >
-                <ExternalLink className="h-4 w-4" /> View in browser
-              </a>
-              <a
-                href="/downloads/francis-anto-resume.pdf"
-                download="Francis-Anto-Resume.pdf"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-md transition hover:opacity-90 hover:scale-[1.02]"
-              >
-                <Download className="h-4 w-4" /> Download Resume
-              </a>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Milestones & Achievements with Photos */}
-      <section id="milestones" className="mx-auto max-w-6xl px-6 py-24">
+      <section id="milestones" className="mx-auto max-w-6xl px-6 py-16">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
               Recognition & Leadership
             </span>
-            <h2 className="mt-2 font-display text-4xl font-bold md:text-6xl">
+            <h2 className="mt-2 font-display text-4xl font-bold md:text-5xl">
               Achievements & Milestones
             </h2>
-            <p className="mt-2 text-muted-foreground">
+            <p className="mt-2 text-sm text-muted-foreground">
               Verified milestones, official recognitions, and funded initiatives. Click any card to
               view the full certificate and poster.
             </p>
           </div>
         </div>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           {milestones.map((m) => {
             const Icon = m.icon;
             return (
@@ -912,24 +858,24 @@ function Index() {
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-1 flex-col p-6">
+                <div className="flex flex-1 flex-col p-5">
                   <div className="flex items-center justify-between gap-2">
                     <p className="text-xs font-semibold uppercase tracking-wider text-primary">
                       {m.stats}
                     </p>
                   </div>
-                  <h3 className="mt-2 font-display text-xl font-bold tracking-tight text-foreground">
+                  <h3 className="mt-1.5 font-display text-lg font-bold tracking-tight text-foreground">
                     {m.title}
                   </h3>
-                  <p className="mt-1 text-xs font-medium text-muted-foreground">{m.subtitle}</p>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-0.5 text-xs font-medium text-muted-foreground">{m.subtitle}</p>
+                  <p className="mt-2.5 flex-1 text-xs sm:text-sm leading-relaxed text-muted-foreground">
                     {m.description}
                   </p>
 
                   <button
                     type="button"
                     onClick={() => setSelectedMilestone(m)}
-                    className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-primary hover:underline"
+                    className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-primary hover:underline"
                   >
                     <span>View full photo & verification</span>
                     <ArrowUpRight className="h-3.5 w-3.5" />
@@ -1005,6 +951,175 @@ function Index() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Reviews & Feedback Section */}
+      <section id="reviews" className="mx-auto max-w-6xl px-6 py-16 border-t">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <div className="inline-flex items-center rounded-full border border-border/80 bg-muted/40 px-3.5 py-1 text-[11px] font-semibold tracking-wider uppercase text-muted-foreground">
+              Reviews & Feedback
+            </div>
+            <h2 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-5xl">
+              Share Your Experience
+            </h2>
+            <p className="mt-2 max-w-xl text-sm text-muted-foreground leading-relaxed">
+              Have you collaborated with me? Leave a review and let others know about your
+              experience working together.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowReviewModal(true)}
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 hover:scale-[1.02] active:scale-95 shrink-0"
+          >
+            <Plus className="h-4 w-4" />
+            <span>Add Review</span>
+          </button>
+        </div>
+
+        {/* Reviews Showcase */}
+        {reviewsList.length === 0 ? (
+          <div className="mt-8 flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/80 bg-card/40 py-12 px-6 text-center backdrop-blur-sm">
+            <div className="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary mb-3">
+              <MessageSquareQuote className="h-6 w-6" />
+            </div>
+            <h4 className="font-display text-base font-bold text-foreground">No reviews yet</h4>
+            <p className="mt-1 max-w-sm text-xs leading-relaxed text-muted-foreground">
+              Be the first to share your experience collaborating with Francis. Ready to sync with
+              your Supabase database.
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowReviewModal(true)}
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              <span>Write a Review</span>
+            </button>
+          </div>
+        ) : (
+          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {reviewsList.map((item) => (
+              <div
+                key={item.id || item.created_at}
+                className="flex flex-col justify-between rounded-2xl border border-border/70 bg-card/70 p-6 shadow-sm transition hover:border-primary/40 hover:-translate-y-0.5"
+              >
+                <p className="text-sm leading-relaxed text-foreground/90 italic">"{item.review}"</p>
+                <div className="mt-5 flex items-center justify-between border-t border-border/40 pt-3 text-xs">
+                  <span className="font-semibold text-foreground">{item.name}</span>
+                  <span className="text-muted-foreground">
+                    {item.created_at
+                      ? new Date(item.created_at).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })
+                      : "Recent"}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Review Submission Modal */}
+      {showReviewModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setShowReviewModal(false)}
+        >
+          <div
+            className="relative w-full max-w-lg overflow-hidden rounded-2xl border bg-card p-6 shadow-2xl animate-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b pb-4">
+              <div>
+                <h3 className="font-display text-xl font-bold text-foreground">
+                  Share Your Experience
+                </h3>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Leave a testimonial or feedback working with Francis
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowReviewModal(false)}
+                className="grid h-8 w-8 place-items-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition"
+                title="Close (Esc)"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Modal Form */}
+            <form onSubmit={handleSubmitReview} className="mt-5 space-y-4">
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={reviewName}
+                  onChange={(e) => setReviewName(e.target.value)}
+                  placeholder="Your name"
+                  className="mt-1.5 w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground shadow-sm placeholder:text-muted-foreground/60 transition focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={reviewEmail}
+                  onChange={(e) => setReviewEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  className="mt-1.5 w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground shadow-sm placeholder:text-muted-foreground/60 transition focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Your Review
+                </label>
+                <textarea
+                  required
+                  rows={4}
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  placeholder="Share your experience working with me..."
+                  className="mt-1.5 w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground shadow-sm placeholder:text-muted-foreground/60 transition focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary resize-none"
+                />
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={submittingReview}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background shadow-md transition hover:opacity-90 active:scale-[0.99] disabled:opacity-50"
+                >
+                  <Send className="h-4 w-4" />
+                  <span>{submittingReview ? "Submitting..." : "Submit Review"}</span>
+                </button>
+              </div>
+
+              {reviewSuccess && (
+                <div className="flex items-center gap-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-3 text-xs font-medium text-emerald-600 dark:text-emerald-400 animate-in fade-in">
+                  <CheckCircle className="h-4 w-4 shrink-0" />
+                  <span>
+                    Thank you! Your review has been saved and will sync with your Supabase database.
+                  </span>
+                </div>
+              )}
+            </form>
           </div>
         </div>
       )}
