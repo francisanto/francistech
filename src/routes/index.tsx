@@ -84,12 +84,33 @@ const tone: Record<Cat, string> = {
   Tools: "bg-card text-foreground border",
 };
 
-const projects = [
+interface ProjectItem {
+  t: string;
+  h: string;
+  live?: string;
+  tag: string;
+  p: string;
+}
+
+const projects: ProjectItem[] = [
+  {
+    t: "Prompt Vulnerability & Token Analyzer",
+    h: "https://github.com/francisanto/backendprompt",
+    tag: "Final Year Project · AI Security",
+    p: "Ongoing final year engineering research & backend system that inspects LLM prompts to detect security vulnerabilities (prompt injection, jailbreaks, data leakage) while benchmarking token efficiency, latency, and cost across newer vs. older model generations and AI developer IDEs.",
+  },
   {
     t: "Concordia",
     h: "https://github.com/francisanto/coincordia",
     tag: "Blockchain · opBNB",
     p: "Collaborative decentralized platform for goal tracking, team coordination, and shared fund management. Integrated smart contracts on the opBNB Testnet with MetaMask — recognized during the BNB Hack.",
+  },
+  {
+    t: "InANOut",
+    h: "https://github.com/francisanto/inanout",
+    live: "https://inanout.lovable.app/",
+    tag: "FinTech · Live App",
+    p: "Fund management and expense coordination platform featuring lending and borrowing tracking across groups, GPay-style expense splitting, and detailed financial analytics.",
   },
   {
     t: "PA System Classifier",
@@ -108,12 +129,6 @@ const projects = [
     h: "https://github.com/francisanto/Repa",
     tag: "AI · EdTech",
     p: "AI-driven class management platform with student verification, Razorpay payments, OCR-based timetable extraction, and printable leave/permission letters.",
-  },
-  {
-    t: "InANOut",
-    h: "https://github.com/francisanto/inanout",
-    tag: "FinTech",
-    p: "Fund management system with lending and borrowing across groups, GPay-style expense splitting, plus income tracking.",
   },
 ];
 
@@ -736,27 +751,42 @@ function Index() {
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <a
+            <div
               key={p.t}
-              href={p.h}
-              target="_blank"
-              rel="noreferrer"
-              className="flex flex-col justify-between rounded-2xl border bg-card p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+              className="flex flex-col justify-between rounded-2xl border bg-card p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
               <div>
                 <span className="rounded-full bg-tile-soft px-3 py-1 text-xs font-medium">
                   {p.tag}
                 </span>
-                <h3 className="mt-4 flex items-center gap-2 font-display text-2xl font-bold">
-                  {p.t} <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
-                </h3>
+                <h3 className="mt-4 font-display text-2xl font-bold">{p.t}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.p}</p>
               </div>
-              <div className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-primary">
-                <span>View on GitHub</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border/40 pt-4 text-xs font-semibold">
+                <a
+                  href={p.h}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-primary hover:underline"
+                >
+                  <Github className="h-3.5 w-3.5" />
+                  <span>GitHub</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+
+                {p.live && (
+                  <a
+                    href={p.live}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground shadow-sm transition hover:opacity-90 hover:scale-105"
+                  >
+                    <span>Live Demo</span>
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                )}
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </section>
