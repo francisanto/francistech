@@ -19,7 +19,11 @@ import {
   Maximize2,
   X,
   Volume2,
+  Send,
+  CheckCircle,
+  MessageSquareQuote,
 } from "lucide-react";
+import { getReviews, addReview, type ReviewItem } from "@/lib/supabase";
 import francis from "@/assets/francis-formal.png";
 import francisPortrait from "@/assets/francis-portrait.jpg";
 import bnbSpotlight from "@/assets/achievements/bnb-hack-spotlight.jpg";
@@ -110,7 +114,16 @@ const projects = [
   },
 ];
 
-const nav = ["About", "Skills", "Work", "Experience", "Education", "Milestones", "Contact"];
+const nav = [
+  "About",
+  "Skills",
+  "Work",
+  "Experience",
+  "Education",
+  "Milestones",
+  "Reviews",
+  "Contact",
+];
 
 const INTRO =
   "Hi, I am Francis, a full stack developer from Thrissur, Kerala. I build scalable web apps with React, Python, MongoDB, and SQL, and I love weaving in blockchain and machine learning. Currently I am exploring AI system security and Linux.";
@@ -172,12 +185,48 @@ const milestones: Milestone[] = [
 
 function Index() {
   const [active, setActive] = useState<Cat | null>(null);
-  const [selected, setSelected] = useState<(typeof skills)[number] | null>(null);
+  const [selected, setSelected] = useState<(typeof skills)[number] | null>(skills[0]);
   const [speaking, setSpeaking] = useState(false);
   const [selectedMilestone, setSelectedMilestone] = useState<Milestone | null>(null);
 
+  // Reviews & Feedback state (empty initially, connects to Supabase)
+  const [reviewsList, setReviewsList] = useState<ReviewItem[]>([]);
+  const [reviewName, setReviewName] = useState("");
+  const [reviewEmail, setReviewEmail] = useState("");
+  const [reviewText, setReviewText] = useState("");
+  const [submittingReview, setSubmittingReview] = useState(false);
+  const [reviewSuccess, setReviewSuccess] = useState(false);
+
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const keepAliveTimer = useRef<number | null>(null);
+
+  // Fetch reviews on mount
+  useEffect(() => {
+    getReviews().then((items) => {
+      setReviewsList(items);
+    });
+  }, []);
+
+  const handleSubmitReview = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!reviewName.trim() || !reviewText.trim()) return;
+    setSubmittingReview(true);
+    const res = await addReview({
+      name: reviewName.trim(),
+      email: reviewEmail.trim(),
+      review: reviewText.trim(),
+    });
+    setSubmittingReview(false);
+    if (res.success) {
+      setReviewSuccess(true);
+      const updated = await getReviews();
+      setReviewsList(updated);
+      setReviewName("");
+      setReviewEmail("");
+      setReviewText("");
+      setTimeout(() => setReviewSuccess(false), 5000);
+    }
+  };
 
   // Close modal with Escape key
   useEffect(() => {
@@ -232,26 +281,33 @@ function Index() {
     utteranceRef.current = utter; // Retain reference to prevent garbage collection
 
     const voices = synth.getVoices();
-    // Prioritize natural male / Indian English voice
-    const indianMale = voices.find(
-      (v) => /^en[-_]IN/i.test(v.lang) && /male|rishi|ravi|prabhat|neerja|aarav/i.test(v.name),
-    );
-    const indianAny = voices.find((v) => /^en[-_]IN/i.test(v.lang));
-    const englishMale = voices.find(
-      (v) =>
-        /^en/i.test(v.lang) &&
-        /male|david|daniel|george|alex|fred|james|oliver|arthur|guy/i.test(v.name) &&
-        !/female|zira|samantha|victoria|karen|moira|fiona|tessa/i.test(v.name),
-    );
-    const anyEnglish = voices.find((v) => /^en/i.test(v.lang));
 
-    const selectedVoice = indianMale || indianAny || englishMale || anyEnglish;
+    const isFemale = (name: string) =>
+      /female|woman|zira|samantha|victoria|karen|moira|fiona|tessa|veena|neerja|heera|sangeeta|hazel|susan|catherine|linda|stephanie|alice|alva|amelie|anna|ellen|helena|ioana|joana|katja|kyoko|lekha|luciana|milena|monica|nora|paulina|sara|satu|sin-ji|ting-ting|yuna|yuri|zoe/i.test(
+        name,
+      );
+
+    const isExplicitMale = (name: string) =>
+      /male|man|rishi|ravi|prabhat|aarav|david|daniel|george|alex|fred|james|oliver|arthur|guy|tom|aaron|mark|brian|john|paul|richard|charles|edward/i.test(
+        name,
+      );
+
+    // Prioritize natural male voice only
+    const indianMale = voices.find(
+      (v) => /^en[-_]IN/i.test(v.lang) && isExplicitMale(v.name) && !isFemale(v.name),
+    );
+    const englishMale = voices.find(
+      (v) => /^en/i.test(v.lang) && isExplicitMale(v.name) && !isFemale(v.name),
+    );
+    const fallbackMale = voices.find((v) => /^en/i.test(v.lang) && !isFemale(v.name));
+
+    const selectedVoice = indianMale || englishMale || fallbackMale;
     if (selectedVoice) {
       utter.voice = selectedVoice;
     }
 
-    utter.pitch = 0.95;
-    utter.rate = 0.98;
+    utter.pitch = 0.88; // Confident male tone
+    utter.rate = 0.96;
 
     utter.onstart = () => {
       setSpeaking(true);
