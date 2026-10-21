@@ -47,7 +47,15 @@ export const Route = createFileRoute("/")({
         content: "MERN, AI and Web3 development projects and achievements by Francis Anto.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://francisanto.me" },
+      { property: "og:image", content: "/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Francis Anto — Full Stack Developer" },
+      {
+        name: "twitter:description",
+        content: "MERN, AI and Web3 development projects and achievements by Francis Anto.",
+      },
+      { name: "twitter:image", content: "/og-image.png" },
     ],
   }),
   component: Index,
@@ -450,10 +458,11 @@ function Index() {
               <button
                 type="button"
                 onClick={toggleVoice}
-                className={`grid h-11 w-11 place-items-center rounded-full transition-all duration-200 shadow-sm hover:scale-105 active:scale-95 ${speaking
+                className={`grid h-11 w-11 place-items-center rounded-full transition-all duration-200 shadow-sm hover:scale-105 active:scale-95 ${
+                  speaking
                     ? "bg-primary text-primary-foreground ring-4 ring-primary/20 animate-pulse"
                     : "bg-primary text-primary-foreground hover:opacity-90 hover:shadow-md"
-                  }`}
+                }`}
                 aria-label={speaking ? "Stop voice intro" : "Play voice intro"}
                 title={speaking ? "Stop voice intro" : "Play voice intro"}
               >
@@ -505,10 +514,11 @@ function Index() {
 
             {/* ID Card Badge */}
             <div
-              className={`mt-1 w-72 origin-top rotate-[-2deg] overflow-hidden rounded-2xl border bg-card shadow-2xl transition-all duration-500 hover:rotate-0 hover:scale-[1.02] ${speaking
+              className={`mt-1 w-72 origin-top rotate-[-2deg] overflow-hidden rounded-2xl border bg-card shadow-2xl transition-all duration-500 hover:rotate-0 hover:scale-[1.02] ${
+                speaking
                   ? "ring-4 ring-primary/40 shadow-[0_20px_60px_rgba(48,27,160,0.35)]"
                   : "shadow-[0_15px_40px_rgba(0,0,0,0.12)]"
-                }`}
+              }`}
             >
               <div className="flex items-center justify-between bg-primary px-4 py-3 text-primary-foreground">
                 <div className="flex items-center gap-2">
@@ -720,8 +730,9 @@ function Index() {
               onMouseEnter={() => setActive(c)}
               onMouseLeave={() => setActive(null)}
               onClick={() => setActive(active === c ? null : c)}
-              className={`rounded-full border px-4 py-1.5 text-sm transition ${active === c ? "bg-foreground text-background" : "bg-card"
-                }`}
+              className={`rounded-full border px-4 py-1.5 text-sm transition ${
+                active === c ? "bg-foreground text-background" : "bg-card"
+              }`}
             >
               {c}
             </button>
@@ -734,11 +745,13 @@ function Index() {
                 key={k.n}
                 type="button"
                 onClick={() => setSelected(selected?.n === k.n ? null : k)}
-                className={`aspect-square rounded-xl p-3 text-left shadow-sm transition duration-300 hover:-translate-y-1 ${tone[k.c]
-                  } ${active && active !== k.c ? "opacity-20" : ""} ${selected?.n === k.n
+                className={`aspect-square rounded-xl p-3 text-left shadow-sm transition duration-300 hover:-translate-y-1 ${
+                  tone[k.c]
+                } ${active && active !== k.c ? "opacity-20" : ""} ${
+                  selected?.n === k.n
                     ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
                     : ""
-                  }`}
+                }`}
               >
                 <div className="text-[10px] opacity-60">{String(i + 1).padStart(2, "0")}</div>
                 <div className="font-display text-3xl font-bold">{k.s}</div>
@@ -1108,10 +1121,10 @@ function Index() {
                   <span className="text-muted-foreground shrink-0 text-[11px]">
                     {item.created_at
                       ? new Date(item.created_at).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })
                       : "Recent"}
                   </span>
                 </div>
