@@ -29,33 +29,137 @@ import { getReviews, addReview, type ReviewItem } from "@/lib/supabase";
 import francisPortrait from "@/assets/francis-portrait.jpg";
 import bnbSpotlight from "@/assets/achievements/bnb-hack-spotlight.jpg";
 import codeExcom from "@/assets/achievements/code-excom-2024.jpg";
-import ideaFest from "@/assets/achievements/ksum-idea-fest-funding.png";
+import ideaFest from "@/assets/achievements/ksum-idea-fest-funding.jpg";
 import ofsideApp from "@/assets/achievements/ofside-internship.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Francis Anto — Full Stack Developer" },
+      { title: "Francis Anto — Full Stack Developer & AI Engineer" },
       {
         name: "description",
         content:
-          "Portfolio of Francis Anto, full stack developer from Thrissur building with MERN, AI, and blockchain technologies.",
+          "Portfolio of Francis Anto, full stack developer and AI engineer from Thrissur, Kerala. Building with React, Python, Node.js, Web3, and AI security.",
       },
-      { property: "og:title", content: "Francis Anto — Full Stack Developer" },
+      {
+        name: "robots",
+        content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      },
+      { property: "og:title", content: "Francis Anto — Full Stack Developer & AI Engineer" },
       {
         property: "og:description",
-        content: "MERN, AI and Web3 development projects and achievements by Francis Anto.",
+        content:
+          "Portfolio of Francis Anto, full stack developer and AI engineer from Thrissur, Kerala. Building with React, Python, Node.js, Web3, and AI security.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://francisanto.me" },
-      { property: "og:image", content: "/og-image.png" },
+      { property: "og:site_name", content: "Francis Anto" },
+      { property: "og:locale", content: "en_US" },
+      { property: "og:image", content: "https://francisanto.me/og-image.png" },
+      { property: "og:image:secure_url", content: "https://francisanto.me/og-image.png" },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      {
+        property: "og:image:alt",
+        content: "Francis Anto — Full Stack Developer & AI Engineer Portfolio",
+      },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Francis Anto — Full Stack Developer" },
+      { name: "twitter:site", content: "@francisanto" },
+      { name: "twitter:creator", content: "@francisanto" },
+      { name: "twitter:title", content: "Francis Anto — Full Stack Developer & AI Engineer" },
       {
         name: "twitter:description",
-        content: "MERN, AI and Web3 development projects and achievements by Francis Anto.",
+        content:
+          "Portfolio of Francis Anto, full stack developer and AI engineer from Thrissur, Kerala. Building with React, Python, Node.js, Web3, and AI security.",
       },
-      { name: "twitter:image", content: "/og-image.png" },
+      { name: "twitter:image", content: "https://francisanto.me/og-image.png" },
+      {
+        name: "twitter:image:alt",
+        content: "Francis Anto — Full Stack Developer & AI Engineer Portfolio",
+      },
+      {
+        "script:ld+json": {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Person",
+              "@id": "https://francisanto.me/#person",
+              name: "Francis Anto",
+              givenName: "Francis",
+              familyName: "Anto",
+              jobTitle: "Full Stack Developer",
+              url: "https://francisanto.me",
+              image: "https://francisanto.me/og-image.png",
+              description:
+                "Full stack developer and AI engineer from Thrissur, Kerala building with React, Python, Node.js, and Web3 technologies.",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Thrissur",
+                addressRegion: "Kerala",
+                addressCountry: "IN",
+              },
+              alumniOf: {
+                "@type": "CollegeOrUniversity",
+                name: "Christ College of Engineering",
+              },
+              sameAs: [
+                "https://github.com/francisanto",
+                "https://linkedin.com/in/francisantothottungal",
+                "https://twitter.com/francisanto",
+              ],
+              knowsAbout: [
+                "React",
+                "React Native",
+                "Node.js",
+                "NestJS",
+                "Python",
+                "JavaScript",
+                "MongoDB",
+                "MySQL",
+                "REST API",
+                "Web3",
+                "opBNB",
+                "AI System Security",
+                "Linux",
+              ],
+              award: [
+                "Kerala Startup Mission (KSUM) ₹35,000 IDEA FEST Grant",
+                "BNB Hack Builders Spotlight Selection",
+              ],
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://francisanto.me/#website",
+              url: "https://francisanto.me",
+              name: "Francis Anto Portfolio",
+              description:
+                "Portfolio of Francis Anto, full stack developer from Thrissur building with MERN, AI, and blockchain technologies.",
+              publisher: {
+                "@id": "https://francisanto.me/#person",
+              },
+            },
+            {
+              "@type": "ProfilePage",
+              "@id": "https://francisanto.me/#webpage",
+              url: "https://francisanto.me",
+              name: "Francis Anto — Full Stack Developer & AI Engineer",
+              isPartOf: {
+                "@id": "https://francisanto.me/#website",
+              },
+              mainEntity: {
+                "@id": "https://francisanto.me/#person",
+              },
+            },
+          ],
+        },
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://francisanto.me",
+      },
     ],
   }),
   component: Index,
@@ -433,22 +537,23 @@ function Index() {
 
       {/* Hero Section */}
       <section id="top" className="relative overflow-hidden pt-20">
-        <h1
-          aria-hidden
+        <div
+          aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-24 select-none text-center font-display text-[22vw] font-bold leading-none tracking-tighter text-foreground/[0.05]"
         >
           FRANCIS
-        </h1>
+        </div>
         <div className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-6xl items-end gap-6 px-6 md:grid-cols-[1.1fr_auto_1fr]">
           <div className="pb-16 md:pb-24">
             <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">
               Francis Anto · Portfolio
             </p>
-            <h2 className="font-display text-5xl font-bold leading-[0.95] text-primary md:text-7xl">
+            <h1 className="font-display text-5xl font-bold leading-[0.95] text-primary md:text-7xl">
+              <span className="sr-only">Francis Anto — </span>
               Full Stack
               <br />
               Developer.
-            </h2>
+            </h1>
             <p className="mt-4 text-muted-foreground">
               MERN · AI & Machine Learning · Web3 / Blockchain
             </p>
@@ -541,7 +646,11 @@ function Index() {
                 <div className="relative mx-auto h-48 w-40 overflow-hidden rounded-xl border bg-tile-soft shadow-inner">
                   <img
                     src={francisPortrait}
-                    alt="Francis Anto Portrait"
+                    alt="Francis Anto — Full Stack Developer & AI Engineer"
+                    width={160}
+                    height={192}
+                    decoding="async"
+                    fetchPriority="high"
                     className="h-full w-full object-cover object-top"
                   />
                   {speaking && (
@@ -929,6 +1038,8 @@ function Index() {
                   <img
                     src={m.image}
                     alt={m.title}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 transition duration-300 group-hover:opacity-80" />
@@ -1023,6 +1134,7 @@ function Index() {
                 <img
                   src={selectedMilestone.image}
                   alt={selectedMilestone.title}
+                  decoding="async"
                   className="max-h-[65vh] w-auto max-w-full object-contain"
                 />
               </div>

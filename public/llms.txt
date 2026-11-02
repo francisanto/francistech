@@ -1,0 +1,64 @@
+# Francis Anto — Full Stack Developer & AI Engineer
+
+> Website: https://francisanto.me
+> Location: Thrissur, Kerala, India
+> Contact: francisanto2022@gmail.com | +91 82898 72466
+> GitHub: https://github.com/francisanto
+> LinkedIn: https://linkedin.com/in/francisantothottungal
+> Twitter/X: https://twitter.com/francisanto
+
+## Summary
+Francis Anto is a full stack developer and AI engineer based in Thrissur, Kerala. He builds web applications with React, Python, MongoDB, and SQL, with interests in blockchain technologies, multimodal AI systems, and AI system security.
+
+## Education
+- **B.Tech, Computer Science & Engineering (2023 – 2027)**
+  Christ College of Engineering, Thrissur, Kerala
+  Current CGPA: 72.30%
+- **Higher Secondary (Class XII, 2020 – 2022)**
+  Bharatiya Vidya Bhavan's Vidya Mandir, Thrissur
+  Score: 87.6%
+
+## Experience
+- **React Developer Intern — Ofside, Delhi (May 2026 – Aug 2026)**
+  - Contributed to a sports management platform featuring match scoring, tournament coordination, authentication, and subscription functionality using React Native, NestJS, Node.js, and REST APIs.
+  - Debugged and resolved 250+ application issues; released on both Apple App Store and Google Play Store.
+- **Digital Marketing Intern — Mindenius, Bangalore (May 2025 – Jun 2025)**
+  - Designed promotional posters, marketing materials, and webinar content to boost audience engagement.
+  - Handled student enquiries, coordinated meetings, and resolved queries.
+
+## Technical Skills
+- **Frontend:** React, React Native, JavaScript, HTML5, CSS3, Tailwind CSS
+- **Backend:** Python, Node.js, NestJS, REST APIs
+- **Databases:** MongoDB, MySQL
+- **Tools:** Git, GitHub, Postman, Swagger, Linux
+- **Focus Areas:** Full Stack Web Development, Multimodal AI, opBNB Smart Contracts, AI System Security
+
+## Key Projects
+- **Prompt Vulnerability & Token Analyzer**
+  - Repository: https://github.com/francisanto/backendprompt
+  - Final year engineering research and backend system inspecting LLM prompts to detect security vulnerabilities (prompt injection, jailbreaks, data leakage) while benchmarking token efficiency, latency, and cost.
+- **Concordia**
+  - Repository: https://github.com/francisanto/coincordia
+  - Collaborative decentralized platform for goal tracking, team coordination, and shared fund management on opBNB Testnet with MetaMask. Recognized in BNB Hack Builders Spotlight.
+- **InANOut**
+  - Repository: https://github.com/francisanto/inanout
+  - Live Demo: https://inanout.lovable.app/
+  - Fund management and expense coordination platform with group lending/borrowing tracking and financial analytics.
+- **PA System Classifier**
+  - Repository: https://github.com/francisanto/CaptaNet
+  - Real-time voice announcement classification system for emergency alerts and public announcements using WhisperX, deployed via Linux hostapd hotspot and captive portal.
+- **Emotion & Relationship Classifier**
+  - Repository: https://github.com/francisanto/Emotion_detection
+  - BERT-based NLP models and speech features to classify human emotions and relationship patterns from chat conversations with MySQL storage.
+- **Repa**
+  - Repository: https://github.com/francisanto/Repa
+  - Class management platform featuring student verification, Razorpay payments, and OCR timetable extraction.
+
+## Honors & Milestones
+- **₹35,000 IDEA FEST Grant** — Team White Tie (Francis Anto) secured prototype funding under IDEA FEST by Kerala Startup Mission (KSUM) at Christ College of Engineering.
+- **BNB Hack Builders Spotlight** — Concordia (group savings dApp on opBNB) officially featured in BNB Hack Builders Spotlight celebrating key milestones of past awardees.
+- **CODE EXCOM 2024–25 Event Co-ordinator** — Elected Event Co-ordinator for Department of Computer Science & Engineering association (CODE) Executive Committee at Christ College of Engineering.
+
+## Key Links
+- Homepage: https://francisanto.me/
+- Resume PDF: https://francisanto.me/downloads/francis-anto-resume.pdf
