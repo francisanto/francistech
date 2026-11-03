@@ -85,6 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@francisanto" },
       { name: "theme-color", content: "#0a0e1a" },
+      { name: "msvalidate.01", content: "E8769A86A103FD154031F956485CBA71" },
     ],
     links: [
       {
